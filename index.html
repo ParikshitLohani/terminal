@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OS Command Execution</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+     
+        <div class="terminal-section">
+            <div class="terminal-header">
+                <div class="terminal-title">System Terminal</div>
+                <div class="terminal-controls">
+                    <span class="control minimize"></span>
+                    <span class="control maximize"></span>
+                    <span class="control close"></span>
+                </div>
+            </div>
+            <div class="terminal-content">
+                <div class="output" id="output"></div>
+                <div class="input-line">
+                    <span class="prompt">
+                        <span class="user">user</span>
+                        <span class="separator">@</span>
+                        <span class="host">system</span>
+                        <span class="path">~/terminal</span>
+                        <span class="prompt-symbol">$</span>
+                    </span>
+                    <input type="text" id="commandInput" autofocus spellcheck="false">
+                </div>
+            </div>
+        </div>
+
+    
+        <div class="visualization-section">
+            <div class="visualization-header">
+                <div class="visualization-title">OS Process Visualization</div>
+                <div class="visualization-controls">
+                    <span class="control minimize"></span>
+                    <span class="control maximize"></span>
+                    <span class="control close"></span>
+                </div>
+            </div>
+            <div class="visualization-content">
+              
+                <div class="os-component command-reception">
+                    <div class="component-title">Command Reception</div>
+                    <div class="command-queue">
+                        <div class="queue-item"></div>
+                        <div class="queue-item"></div>
+                        <div class="queue-item"></div>
+                    </div>
+                </div>
+
+  
+                <div class="os-component memory-management">
+                    <div class="component-title">Memory Management</div>
+                    <div class="memory-blocks">
+                        <div class="memory-block"></div>
+                        <div class="memory-block"></div>
+                        <div class="memory-block"></div>
+                        <div class="memory-block"></div>
+                    </div>
+                </div>
+
+         
+                <div class="os-component process-scheduler">
+                    <div class="component-title">Process Scheduler</div>
+                    <div class="scheduler-queue">
+                        <div class="process-item"></div>
+                        <div class="process-item"></div>
+                        <div class="process-item"></div>
+                    </div>
+                </div>
+
+             
+                <div class="os-component cpu">
+                    <div class="component-title">CPU</div>
+                    <div class="cpu-core">
+                        <div class="core-status"></div>
+                    </div>
+                </div>
+
+        
+                <div class="os-component io-operations">
+                    <div class="component-title">I/O Operations</div>
+                    <div class="io-queue">
+                        <div class="io-item"></div>
+                        <div class="io-item"></div>
+                    </div>
+                </div>
+
+                
+                <div class="system-metrics">
+                    <div class="metric">
+                        <div class="metric-label">CPU Usage</div>
+                        <div class="metric-bar">
+                            <div class="metric-fill"></div>
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Memory Usage</div>
+                        <div class="metric-bar">
+                            <div class="metric-fill"></div>
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Process Status</div>
+                        <div class="metric-value">Active</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

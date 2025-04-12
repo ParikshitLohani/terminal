@@ -1,0 +1,383 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fira Code', monospace;
+}
+:root {
+    --primary-color: #00ff9d;
+    --secondary-color: #00b8ff;
+    --background-dark: #0a0a0a;
+    --terminal-bg: #1a1a1a;
+    --text-color: #e0e0e0;
+    --error-color: #ff4444;
+    --success-color: #00ff9d;
+    --component-bg: #222;
+}
+body {
+    background-color: var(--background-dark);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.app-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1400px;
+    width: 100%;
+    height: 80vh;
+}
+.terminal-section {
+    flex: 1;
+    background: var(--terminal-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+.terminal-header {
+    background: #2a2a2a;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+}
+.terminal-title {
+    font-size: 14px;
+    color: var(--primary-color);
+}
+.terminal-controls {
+    display: flex;
+    gap: 8px;
+}
+.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.minimize { background: #ffbd44; }
+.maximize { background: #00ff9d; }
+.close { background: #ff4444; }
+.terminal {
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-dark);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+.output {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-color);
+    position: relative;
+    max-height: calc(100% - 80px); 
+}
+.input-area {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--background-dark);
+    padding: 10px;
+    border-top: 1px solid rgba(0, 255, 157, 0.1);
+    z-index: 1000;
+    margin-top: auto;
+}
+#commandInput {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    color: var(--text-color);
+    font-family: monospace;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1001;
+}
+#commandInput:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+}
+.matrix-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+.output-content {
+    padding-bottom: 20px;
+}
+.visualization-section {
+    flex: 1;
+    background: var(--terminal-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+.visualization-header {
+    background: #2a2a2a;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+}
+.visualization-title {
+    font-size: 14px;
+    color: var(--primary-color);
+}
+.visualization-content {
+    flex: 1;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    overflow-y: auto;
+}
+.os-component {
+    background: var(--component-bg);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid rgba(0, 255, 157, 0.2);
+}
+.component-title {
+    font-size: 12px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.command-queue {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.queue-item {
+    height: 20px;
+    background: rgba(0, 255, 157, 0.1);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+.queue-item.active {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+.memory-blocks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.memory-block {
+    height: 40px;
+    background: rgba(0, 255, 157, 0.1);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+.memory-block.active {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+.scheduler-queue {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.process-item {
+    height: 20px;
+    background: rgba(0, 255, 157, 0.1);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+.process-item.active {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+.cpu-core {
+    height: 60px;
+    background: rgba(0, 255, 157, 0.1);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+.core-status {
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+.core-status.active {
+    opacity: 1;
+    animation: pulse 1s infinite;
+}
+.io-queue {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.io-item {
+    height: 20px;
+    background: rgba(0, 255, 157, 0.1);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+.io-item.active {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+.system-metrics {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 20px;
+    padding: 15px;
+    background: var(--component-bg);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 157, 0.2);
+}
+.metric {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.metric-label {
+    font-size: 12px;
+    color: #888;
+}
+.metric-bar {
+    height: 4px;
+    background: rgba(0, 255, 157, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+.metric-fill {
+    height: 100%;
+    background: var(--primary-color);
+    width: 0%;
+    transition: width 1s ease;
+}
+.metric-value {
+    font-size: 14px;
+    color: var(--primary-color);
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+@keyframes flow {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+.flow-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 157, 0.2), transparent);
+    animation: flow 2s infinite;
+}
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+    }
+    .terminal-section, .visualization-section {
+        height: 50vh;
+    }
+    .visualization-content {
+        grid-template-columns: 1fr;
+    }
+}
+.process-states {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+}
+.state-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.state-title {
+    font-size: 12px;
+    color: var(--text-color);
+    padding: 4px 8px;
+    background: rgba(0, 255, 157, 0.1);
+    border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+}
+.state-queue {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+    min-height: 40px;
+}
+.process-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+.process-item.active {
+    opacity: 1;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+}
+.process-name {
+    font-size: 12px;
+    color: var(--text-color);
+}
+.process-status {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.7);
+}
+.state-container:nth-child(1) .state-title {
+    background: rgba(0, 255, 157, 0.1);
+}
+.state-container:nth-child(2) .state-title {
+    background: rgba(0, 184, 255, 0.1);
+}
+.state-container:nth-child(3) .state-title {
+    background: rgba(255, 189, 68, 0.1);
+}
+.state-container:nth-child(4) .state-title {
+    background: rgba(255, 68, 68, 0.1);
+}
